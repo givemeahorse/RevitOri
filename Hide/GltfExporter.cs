@@ -26,6 +26,7 @@ namespace Hide
         private string outputPath;
         private int levelOfDetail;
         private List<int> filter;
+
         private Document doc;
 
         private Stack<Document> docs = new Stack<Document>();
