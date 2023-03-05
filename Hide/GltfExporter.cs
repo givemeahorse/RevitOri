@@ -20,6 +20,7 @@ using RevitAsset = Autodesk.Revit.DB.Visual.Asset;
 namespace Hide
 {
     public class GltfExporter : IExportContext
+
     {
 
         #region field
