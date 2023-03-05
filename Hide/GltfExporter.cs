@@ -24,6 +24,7 @@ namespace Hide
 
         #region field
         private string outputPath;
+
         private int levelOfDetail;
         private List<int> filter;
 
