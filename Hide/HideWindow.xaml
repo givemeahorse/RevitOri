@@ -1,0 +1,102 @@
+﻿<Window x:Class="Hide.HideWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Hide"
+        mc:Ignorable="d"
+        Title="隐藏管理器" Height="456.4" Width="576" Closing="Window_Closing">
+    <Window.Resources>
+        <ResourceDictionary>
+            <Style x:Key="dgCell" TargetType="TextBlock">
+                <Setter Property="TextAlignment" Value="Center"/>
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="欢迎使用隐藏管理器，选中列表中的构件行进行恢复显示或继续隐藏。" VerticalAlignment="Top" Margin="21,16,0,0" Height="26" Width="382"/>
+        <DataGrid x:Name="hidewindow" HorizontalAlignment="Left" Height="290" VerticalAlignment="Top" Width="523" Margin="21,52,0,0" VerticalScrollBarVisibility="Visible" AutoGenerateColumns="False" CanUserResizeColumns="True" CanUserAddRows="False" IsReadOnly="True" >
+            <DataGrid.ColumnHeaderStyle>
+                <!--使每一列的头部标题居中-->
+                <Style TargetType="DataGridColumnHeader">
+                    <Setter Property="HorizontalContentAlignment" Value="Center">
+                    </Setter>
+                </Style>
+            </DataGrid.ColumnHeaderStyle>
+
+            <DataGrid.Resources>
+                <local:ListToStringConverter x:Key="lstToString"/>
+            </DataGrid.Resources>
+
+            <DataGrid.CellStyle>
+                <Style TargetType="DataGridCell">
+                    <Setter Property="ToolTip"  Value="{Binding RelativeSource={RelativeSource Mode=Self},Path=Content.Text}">
+
+                    </Setter>
+                </Style>
+            </DataGrid.CellStyle>
+
+
+            <!--1-->
+            <DataGrid.Columns>
+
+                <DataGridTextColumn Header="编号"  Width="0.5*" Binding="{Binding id,Mode=TwoWay}" ElementStyle="{StaticResource dgCell}">
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="ToolTip" Value="{Binding Description}" />
+
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
+
+                <!--2-->
+                <DataGridTextColumn  Header="构件名称" Width="3*" Binding="{Binding name,Converter={StaticResource lstToString},Mode=TwoWay}">
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="ToolTip" >
+                                <Setter.Value>
+                                    <ToolTip Width="400" Height="auto">
+                                        <TextBlock Text="{Binding name,Converter={StaticResource lstToString}}" TextWrapping="Wrap" />
+                                    </ToolTip>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="Width" Value="auto"/>
+                            <Setter Property="Height" Value="auto"/>
+
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
+
+
+                <!--3-->
+                <DataGridTextColumn  Header="所属视图" Width="2*" Binding="{Binding plan,Mode=TwoWay}" ElementStyle="{StaticResource dgCell}">
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="ToolTip" >
+                                <Setter.Value>
+                                    <ToolTip Width="150" Height="auto">
+                                        <TextBlock Text="{Binding plan}" TextWrapping="Wrap" />
+                                    </ToolTip>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="Width" Value="auto"/>
+                            <Setter Property="Height" Value="auto"/>
+
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
+                <!--4-->
+                <DataGridTextColumn  Header="隐藏时间" Width="1.8*" Binding="{Binding time,Mode=TwoWay}" ElementStyle="{StaticResource dgCell}">
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="ToolTip" Value="{Binding Description}"/>
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Content="恢复显示" HorizontalAlignment="Left" VerticalAlignment="Top" Width="93" Margin="335,366,0,0" Height="30" Click="Button_Click"/>
+        <Button Content="继续隐藏" HorizontalAlignment="Left" VerticalAlignment="Top" Width="93" Margin="451,366,0,0" Height="30" Click="Button_Click_1"/>
+        <Button Content="清空列表" HorizontalAlignment="Left" VerticalAlignment="Top" Width="93" Margin="21,366,0,0" Height="30" RenderTransformOrigin="-0.358,0.877" ToolTip="清空列表会恢复所有已隐藏构件的显示" Click="Button_Click_2"/>
+    </Grid>
+</Window>
